@@ -5,8 +5,9 @@
 #include <string>
 #include <bits/stdc++.h>
 #include <windows.h>
-
-
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlQuery>
+#include <QDebug>
 using namespace std;
 
 

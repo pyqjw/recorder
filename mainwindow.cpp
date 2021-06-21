@@ -3,12 +3,11 @@
 #include <QDebug>
 #include <QPalette>
 void MainWindow::init() {
-    ui->FRATE->setText(QString("50"));
+    ui->frate->setText(QString("50"));
     ui->LeftTopX->setText(QString("0"));
     ui->LeftTopY->setText(QString("0"));
-    ui->RightBottomX->setText(QString("1920"));
-    ui->RightBottomY->setText(QString("1080"));
-
+    ui->width->setText(QString("1920"));
+    ui->height->setText(QString("1080"));
 }
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -30,9 +29,8 @@ MainWindow::~MainWindow()
 
 int MainWindow::start_rec() {
     this->showMinimized();   //窗口最小化
-//	Sleep(250);
+    Sleep(250);
     char tmpfnbuf[MAX_PATH*4];
-    //GetDlgItemText(hwnd, IDC_IPATH, tmpfnbuf, MAX_PATH*4);
     QString qs = ui->path->text();
     sprintf(tmpfnbuf, "%s", qs.toStdString().c_str());
     if (strcmp(tmpfnbuf, "") == 0) {
@@ -61,27 +59,12 @@ int MainWindow::start_rec() {
     */
     QRect re = this->rect();
     int w = re.right(), h = re.bottom();
-    char ww[10];
-    sprintf(ww, "%d", w);
-
-    char hh[10];
-    sprintf(hh, "%d", h);
-
-    char xx[10];
-    sprintf(xx, "%d", 0);
-
-    char yy[10];
-    sprintf(yy, "%d", 0);
-
-    char frate[10];
-    sprintf(yy, "%d", 50);
-
-//	GetDlgItemText(hwnd, IDC_FRATE, frate, 10);
-//	GetDlgItemText(hwnd, IDC_LUX, xx, 10);
-//	GetDlgItemText(hwnd, IDC_LUY, yy, 10);
-//	GetDlgItemText(hwnd, IDC_RDX, ww, 10);
-//	GetDlgItemText(hwnd, IDC_RDY, hh, 10);
-
+    string xx, yy, ww, hh, frate;
+    xx = ui->LeftTopX->text().toStdString();
+    yy = ui->LeftTopY->text().toStdString();
+    ww = ui->width->text().toStdString();
+    hh = ui->height->text().toStdString();
+    frate = ui->frate->text().toStdString();
     string exe = "tools/ffmpeg.exe -f gdigrab -framerate ";
     exe += frate;
     exe += " -offset_x ";
@@ -146,6 +129,23 @@ void MainWindow::on_action_about_triggered()
 
 void MainWindow::on_recordButton_clicked()
 {
-    start_rec();
+    if(isrecording == 0) {
+        isrecording = 1;
+        ui->recordButton->setText("结束录制");
+        start_rec();
+    }
+
+}
+
+
+void MainWindow::on_MainWindow_destroyed()
+{
+    char szCommandLine2[] = ("taskkill /im ffmpeg.exe");
+    STARTUPINFO si2 = { sizeof(si2) };
+    PROCESS_INFORMATION  pi2;
+    si2.wShowWindow = FALSE;
+    si2.dwFlags = STARTF_USESHOWWINDOW;
+    BOOL ret2 = ::CreateProcess(NULL, (LPWSTR)szCommandLine2, NULL, NULL, FALSE, 0, NULL, NULL, &si2, &pi2);
+    Sleep(200);
 }
 

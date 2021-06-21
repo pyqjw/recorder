@@ -30,6 +30,8 @@ private slots:
 
     void on_recordButton_clicked();
 
+    void on_MainWindow_destroyed();
+
 private:
     void init();
     Ui::MainWindow *ui;

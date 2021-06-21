@@ -37,7 +37,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>左上坐标:</string>
+     <string>起点坐标:</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
@@ -50,7 +50,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>右下坐标:</string>
+     <string>录制大小:</string>
     </property>
    </widget>
    <widget class="QWidget" name="horizontalLayoutWidget">
@@ -133,12 +133,12 @@
      <item>
       <widget class="QLabel" name="label_6">
        <property name="text">
-        <string>x =</string>
+        <string>w =</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="RightBottomX">
+      <widget class="QLineEdit" name="width">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -156,12 +156,12 @@
      <item>
       <widget class="QLabel" name="label_7">
        <property name="text">
-        <string>y = </string>
+        <string>h = </string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="RightBottomY"/>
+      <widget class="QLineEdit" name="height"/>
      </item>
     </layout>
    </widget>
@@ -178,7 +178,7 @@
      <string>录制帧率:</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="FRATE">
+   <widget class="QLineEdit" name="frate">
     <property name="geometry">
      <rect>
       <x>117</x>
